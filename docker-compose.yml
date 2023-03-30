@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  debug:
+    container_name: StyleGan3-pytorch
+    hostname: StyleGan3-pytorch
+    build:
+      context: ${PWD}
+      dockerfile: Dockerfile
+    tty: true
+    stdin_open: true
+    shm_size: 4gb
+    deploy:
+      resources:
+        reservations:
+          devices:
+          - driver: nvidia
+            capabilities: [gpu]
+            count: all
+    volumes:
+      - ${PWD}:/workspace
+    command: bash
